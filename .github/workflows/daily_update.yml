@@ -20,8 +20,11 @@ jobs:
       - name: Generate the daily message
         run: echo "Today's date is ${date}...Stay tuned launching soon" > posts/${date}.txt
 
-      - name: Commit the daily message
-        run: git add posts/${date}.txt && git commit -m "Update daily message"
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add posts/*
+          git commit -m "Update daily message [skip ci]"
+          git push
 
-      - name: Push the changes to GitHub
-        run: git push origin main
