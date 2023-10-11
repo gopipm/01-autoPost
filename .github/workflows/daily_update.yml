@@ -21,7 +21,7 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
       - name: Generate the daily message
-        run: echo "Today's date is ${{ steps.date.outputs.date }}...Stay tuned launching soon" > "posts/${{ steps.date.outputs.date }}.txt"
+        run: echo "Today's date is ${{ steps.date.outputs.date }}...Stay tuned launching soon" > "posts/${{ steps.date.outputs.date }}-${{ github.run_attempt }}.txt"
 
       - name: Commit and Push Changes
         run: |
