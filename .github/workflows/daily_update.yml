@@ -21,7 +21,7 @@ jobs:
         run: echo "{date}={$(date +'%Y-%m-%d')}" >> $GITHUB_OUTPUT
 
       - name: Generate the daily message
-        run: echo "Today's date is ${{ date }}...Stay tuned launching soon" > "posts/${{ date }}-${{ github.run_attempt }}.txt"
+        run: echo "Today's date is $date ...Stay tuned launching soon" > "posts/$date-${{ github.run_attempt }}.txt"
 
       - name: Commit and Push Changes
         run: |
