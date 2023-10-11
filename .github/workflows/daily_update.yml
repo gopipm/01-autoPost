@@ -21,7 +21,7 @@ jobs:
         run: echo "Today's date is ${date}...Stay tuned launching soon" > posts/${date}.txt
 
       - name: Commit the daily message
-        run: git add posts/daily_message.txt && git commit -m "Update daily message"
+        run: git add posts/${date}.txt && git commit -m "Update daily message"
 
       - name: Push the changes to GitHub
         run: git push origin main
