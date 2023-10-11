@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out the current repository
+        uses: actions/checkout@v3
+        
       - name: Create the posts directory
         run: mkdir -p posts
 
@@ -27,4 +30,5 @@ jobs:
           git add posts/*
           git commit -m "Update daily message [skip ci]"
           git push
+
 
