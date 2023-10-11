@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Check out the current repository
         uses: actions/checkout@v3
-        
+
       - name: Create the posts directory
         run: mkdir -p posts
 
@@ -21,7 +21,7 @@ jobs:
           date=$(date +'%Y-%m-%d')
 
       - name: Generate the daily message
-        run: echo "Today's date is ${date}...Stay tuned launching soon" > posts/${date}.txt
+        run: echo "Today's date is ${date}...Stay tuned launching soon" > "posts/${date}.txt"
 
       - name: Commit and Push Changes
         run: |
