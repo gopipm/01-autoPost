@@ -16,18 +16,18 @@ jobs:
       - name: Create the posts directory
         run: mkdir -p posts
 
-      - name: Get the current date
-        run: |
-          `date=$(date +'%Y-%m-%d')`
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
       - name: Generate the daily message
-        run: echo "Today's date is ${date}...Stay tuned launching soon" > "posts/${date}.txt"
+        run: echo "Today's date is ${{ steps.date.outputs.date }}...Stay tuned launching soon" > "posts/${{ steps.date.outputs.date }}.txt"
 
       - name: Commit and Push Changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add 
+          git add .
           git add posts/*
           git commit -m "Update daily message [skip ci]"
           git push
