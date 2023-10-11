@@ -18,7 +18,7 @@ jobs:
 
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+        run: echo "{date}={$(date +'%Y-%m-%d')}" >> $GITHUB_OUTPUT
 
       - name: Generate the daily message
         run: echo "Today's date is ${{ steps.date.outputs.date }}...Stay tuned launching soon" > "posts/${{ steps.date.outputs.date }}-${{ github.run_attempt }}.txt"
@@ -31,5 +31,3 @@ jobs:
           git add posts/*
           git commit -m "Update daily message [skip ci]"
           git push
-
-
