@@ -3,7 +3,6 @@ name: Daily Message
 on:
   schedule:
     - cron: '0 0 * * *'  # Set the time you want the workflow to run (midnight)
-  workflow_dispatch: {}  # Allow manual triggering
 
 jobs:
   build:
@@ -18,50 +17,22 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Calculate Post Count
-        id: calculate-post-count
-        run: |
-          # Define a function to read and update the post count
-          def update_post_count(filename):
-              try:
-                  with open(filename, 'r') as file:
-                      post_count = int(file.read())
-                  with open(filename, 'w') as file:
-                      file.write(str(post_count + 1).zfill(2))
-              except FileNotFoundError:
-                  with open(filename, 'w') as file:
-                      file.write('01')
-
-          # Calculate the post count and store it as an output
-          update_post_count('post_count.txt')
-        shell: bash
-
       - name: Write Daily Message
         run: |
           # Import necessary libraries
           from datetime import datetime
-          import os
 
-          # Read the calculated post count
-          post_count = open('post_count.txt', 'r').read()
+          # Define the message
+          message = f"Today's date is {datetime.now().strftime('%Y-%m-%d')}... Stay tuned, launching soon."
 
-          # Define the message and file name
-          date = datetime.now().strftime('%Y-%m-%d')
-          message = f"Today's date is {date}... Stay tuned, launching soon."
-          filename = f"posts/{date}-{post_count}.txt"
-
-          # Ensure the 'posts' folder exists
-          os.makedirs('posts', exist_ok=True)
-
-          # Write the message to the file in the 'posts' folder
-          with open(filename, 'w') as file:
+          # Write the message to the file
+          with open('daily_message.txt', 'w') as file:
               file.write(message)
 
       - name: Commit and Push Changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add posts/*
-          git add post_count.txt
+          git add daily_message.txt
           git commit -m "Update daily message [skip ci]"
           git push
