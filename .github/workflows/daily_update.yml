@@ -3,6 +3,7 @@ name: Daily Message
 on:
   schedule:
     - cron: '0 0 * * *'  # Set the time you want the workflow to run (midnight)
+    workflow_dispatch: {}  # Allow manual triggering
 
 jobs:
   build:
